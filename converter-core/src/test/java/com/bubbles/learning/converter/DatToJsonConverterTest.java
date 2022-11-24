@@ -5,9 +5,6 @@ import java.util.Collections;
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 
-/**
- * Unit test for simple Parser.
- */
 class DatToJsonConverterTest {
 
 	@Test
