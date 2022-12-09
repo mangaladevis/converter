@@ -8,11 +8,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.bubbles.learning.JsonUtil;
-import com.bubbles.learning.input.FileInputHandler;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 public final class DatToJsonConverter {
-	private final static Logger LOGGER = Logger.getLogger(FileInputHandler.class.getName());
+	private final static Logger LOGGER = Logger.getLogger(DatToJsonConverter.class.getName());
 
 	private DatToJsonConverter() {
 	}
