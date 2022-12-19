@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bubbles.learning.converter.DatToJsonConverter;
 
-
 @RestController
 public class ApiController {
 
@@ -21,7 +20,7 @@ public class ApiController {
 		List<String> toConvert = requestBody.lines().toList();
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
-		return new ResponseEntity<String>(DatToJsonConverter.convert(toConvert),responseHeaders,HttpStatus.OK);
+		return new ResponseEntity<String>(DatToJsonConverter.convert(toConvert), responseHeaders, HttpStatus.OK);
 	}
 
 }
