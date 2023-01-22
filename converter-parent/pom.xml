@@ -9,5 +9,7 @@
   	<module>converter-core</module>
   	<module>converter-file</module>
   	<module>converter-api</module>
+  	<module>converter-jms-client</module>
+  	<module>converter-jms</module>
   </modules>
 </project>
