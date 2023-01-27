@@ -19,8 +19,11 @@ import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 public class MessageConsumerRunner implements Runnable {
-	private static final String URL = ActiveMQConnection.DEFAULT_BROKER_URL;
-	private static final String OUTPUT_DIR = System.getProperty("output-dir", "data/output/");
+
+	private static final String URL = System.getProperty("broker_url", ActiveMQConnection.DEFAULT_BROKER_URL);
+	private static final String BROKER_USERNAME = System.getProperty("broker_user_name", "test");
+	private static final String BROKER_PASSWORD = System.getProperty("broker_user_password", "test");
+	private static final String OUTPUT_DIR = System.getProperty("output-dir", "data/output");
 	private static final Logger LOGGER = Logger.getLogger(MessageConsumerRunner.class.getName());
 
 	private String OUTPUT_DESTINATION;
@@ -35,7 +38,7 @@ public class MessageConsumerRunner implements Runnable {
 		ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(URL);
 		Connection connection;
 		try {
-			connection = connectionFactory.createConnection("test", "test");
+			connection = connectionFactory.createConnection(BROKER_USERNAME, BROKER_PASSWORD);
 			connection.start();
 
 			Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
@@ -78,17 +81,17 @@ public class MessageConsumerRunner implements Runnable {
 			String outputFileName = "Output_" + timestamp + ".json";
 			FileWriter file = null;
 			try {
-				file = new FileWriter(outputFilepath + outputFileName);
+				file = new FileWriter(outputFilepath + "/" + outputFileName);
 				file.write(receivedMessage);
 			} catch (IOException e) {
-				String message = "Falied to create the file : " + outputFilepath + outputFileName + ". ";
+				String message = "Falied to create the file : " + outputFilepath + "/" + outputFileName + ". ";
 				LOGGER.log(Level.SEVERE, message, e);
 			} finally {
 				if (file != null) {
 					try {
 						file.close();
 					} catch (IOException e) {
-						String message = "Falied to close the file : " + outputFilepath + outputFileName + ". ";
+						String message = "Falied to close the file : " + outputFilepath + "/" + outputFileName + ". ";
 						LOGGER.log(Level.SEVERE, message, e);
 					}
 				}

@@ -18,7 +18,7 @@ import javax.jms.JMSException;
 
 public class JmsClient {
 
-	private static final String INPUT_DIR = System.getProperty("input-dir", "data/input/");
+	private static final String INPUT_DIR = System.getProperty("input-dir", "data/input");
 	private static String INPUT_DESTINATION = "DatQueue";
 	private static String OUTPUT_DESTINATION = "JsonQueue";
 	private static final Logger LOGGER = Logger.getLogger(JmsClient.class.getName());
@@ -38,7 +38,7 @@ public class JmsClient {
 			while ((key = watchService.take()) != null) {
 				for (WatchEvent<?> event : key.pollEvents()) {
 					try {
-						BufferedReader bufferedReader = new BufferedReader(new FileReader(INPUT_DIR + event.context()));
+						BufferedReader bufferedReader = new BufferedReader(new FileReader(INPUT_DIR +"/"+ event.context()));
 						String inputLine;
 						List<String> datInputs = new ArrayList<>();
 						while ((inputLine = bufferedReader.readLine()) != null) {
