@@ -12,16 +12,18 @@ import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 public class MessageSender {
+
+	private static final String URL = System.getProperty("broker_url", ActiveMQConnection.DEFAULT_BROKER_URL);
+	private static final String BROKER_USERNAME = System.getProperty("broker_user_name", "test");
+	private static final String BROKER_PASSWORD = System.getProperty("broker_user_password", "test");
 	
-	private static String url = ActiveMQConnection.DEFAULT_BROKER_URL;
-	
-	private ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(url);
+	private ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(URL);
 	private Connection connection = null;
 	
 	public void send(String destinationName, String message) throws JMSException {
 
 		if (connection == null) {
-			connection = connectionFactory.createConnection("test", "test");
+			connection = connectionFactory.createConnection(BROKER_USERNAME, BROKER_PASSWORD);
 			connection.start();
 		}
 		

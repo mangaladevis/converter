@@ -19,7 +19,9 @@ import com.bubbles.learning.converter.DatToJsonConverter;
 
 public class JmsServer {
 
-	private static String url = ActiveMQConnection.DEFAULT_BROKER_URL;
+	private static final String URL = System.getProperty("broker_url", ActiveMQConnection.DEFAULT_BROKER_URL);
+	private static final String BROKER_USERNAME = System.getProperty("broker_user_name", "test");
+	private static final String BROKER_PASSWORD = System.getProperty("broker_user_password", "test");
 	private static String requestDestination = "DatQueue";
 	private static String responseDestination = "JsonQueue";
 	private static final String SPLIT_BY = "\\|";
@@ -27,10 +29,10 @@ public class JmsServer {
 
 	public static void main(String[] args) {
 
-		ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(url);
+		ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(URL);
 		Connection connection;
 		try {
-			connection = connectionFactory.createConnection("test", "test");
+			connection = connectionFactory.createConnection(BROKER_USERNAME, BROKER_PASSWORD);
 			connection.start();
 
 			Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
